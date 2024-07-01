@@ -1,0 +1,16 @@
+CREATE TABLE stud_detail (
+ REG_NO INT NOT NULL,
+ COURSE_CODE VARCHAR(20),
+ COURSE_NAME VARCHAR(100),
+ MARKS INT,
+ SEM VARCHAR(10),
+ PRIMARY KEY (REG_NO, COURSE_CODE)
+);
+
+INSERT INTO stud_detail (REG_NO, COURSE_CODE, COURSE_NAME, MARKS, SEM)
+VALUES
+(1, 'CS101', 'Data Structures', 85, 'Sem1'),
+(2, 'EE101', 'Circuit Analysis', 90, 'Sem1'),
+(3, 'ME101', 'Thermodynamics', 78, 'Sem1'),
+(4, 'CS102', 'Algorithms', 88, 'Sem1');
+SELECT*FROM stud_detail;

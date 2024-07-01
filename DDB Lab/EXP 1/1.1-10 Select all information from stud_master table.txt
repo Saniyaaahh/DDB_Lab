@@ -1,0 +1,13 @@
+CREATE TABLE stud_master (
+    REG_NO INT PRIMARY KEY,
+    S_NAME VARCHAR(100),
+    BRANCH VARCHAR(50)
+);
+
+INSERT INTO stud_master (REG_NO, S_NAME, BRANCH)
+VALUES
+(1, 'Aamir Khan', 'Computer Engineering'),
+(2, 'Ayesha Begum', 'Electrical Engineering'),
+(3, 'Rahul Verma', 'Mechanical Engineering'),
+(4, 'Sara Ali', 'Computer Engineering');
+SELECT*FROM stud_master;

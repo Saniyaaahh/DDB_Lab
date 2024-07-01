@@ -1,0 +1,5 @@
+CREATE TABLE stud_master (
+    REG_NO INT PRIMARY KEY,
+    S_NAME VARCHAR(100),
+    BRANCH VARCHAR(50)
+);

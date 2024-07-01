@@ -1,0 +1,15 @@
+CREATE TABLE dept(
+    DEPTNO INT PRIMARY KEY,
+    DNAME VARCHAR(50),
+    LOCATION VARCHAR(50)    
+);
+
+INSERT INTO dept (deptno, dname, location)
+VALUES
+(10, 'ACCOUNTING', 'MUMBAI'),
+(20, 'RESEARCH', 'BANGALORE'),
+(30, 'SALES', 'DELHI'),
+(40, 'OPERATIONS', 'CHENNAI');
+
+SELECT deptno, dname FROM dept
+ORDER BY dname;
