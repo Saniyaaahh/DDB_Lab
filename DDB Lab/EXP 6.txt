@@ -1,0 +1,98 @@
+-- Create the first database named db1
+CREATE DATABASE db1;
+
+-- Create the second database named db2
+CREATE DATABASE db2;
+
+-- Switch to the first database (db1) to work within it
+USE db1;
+
+-- Create a table named emp in db1 with various employee details
+CREATE TABLE emp (
+ empno INT PRIMARY KEY,               -- Employee number (Primary Key)
+ ename VARCHAR(50),                   -- Employee name
+ job VARCHAR(50),                     -- Job title
+ mgr INT,                             -- Manager's employee number (Foreign Key)
+ hiredate DATE,                       -- Date of hire
+ sal DECIMAL(10, 2),                  -- Salary
+ comm DECIMAL(10, 2),                 -- Commission
+ deptno INT,                          -- Department number
+ FOREIGN KEY (mgr) REFERENCES emp(empno)  -- Foreign Key reference to the same table for the manager
+);
+
+-- Switch to the second database (db2) to work within it
+USE db2;
+
+-- Create the same table named emp in db2 with the same structure as in db1
+CREATE TABLE emp (
+ empno INT PRIMARY KEY,               -- Employee number (Primary Key)
+ ename VARCHAR(50),                   -- Employee name
+ job VARCHAR(50),                     -- Job title
+ mgr INT,                             -- Manager's employee number (Foreign Key)
+ hiredate DATE,                       -- Date of hire
+ sal DECIMAL(10, 2),                  -- Salary
+ comm DECIMAL(10, 2),                 -- Commission
+ deptno INT,                          -- Department number
+ FOREIGN KEY (mgr) REFERENCES emp(empno)  -- Foreign Key reference to the same table for the manager
+);
+
+-- Switch back to the first database (db1) to insert data
+USE db1;
+
+-- Insert data into the emp table in db1, starting with a manager (mgr is NULL)
+INSERT INTO emp (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES
+(101, 'Md. Ashique Hussain', 'Manager', NULL, '2022-01-15', 60000.00, 5000.00, 10);
+
+-- Insert other employees under the manager in db1
+INSERT INTO emp (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES
+(102, 'Fatima Begum', 'Clerk', 101, '2023-03-21', 25000.00, NULL, 20),
+(103, 'Aamir Khan', 'Clerk', 101, '2023-05-10', 23000.00, NULL, 20),
+(104, 'Zara Sheikh', 'Salesman', 101, '2023-07-11', 27000.00, 3000.00, 30),
+(105, 'Rahul Sharma', 'Clerk', 101, '2023-08-12', 22000.00, NULL, 20);
+
+-- Switch back to the second database (db2) to insert data
+USE db2;
+
+-- Insert data into the emp table in db2, starting with a manager (mgr is NULL)
+INSERT INTO emp (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES
+(106, 'Sara Ali', 'Analyst', NULL, '2022-11-09', 45000.00, NULL, 30);
+
+-- Insert other employees under the manager in db2
+INSERT INTO emp (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES
+(107, 'Imran Sheikh', 'Clerk', 106, '2023-02-23', 24000.00, NULL, 20),
+(108, 'Anisha Bano', 'Salesman', 106, '2022-12-14', 29000.00, 2000.00, 30);
+
+-- Switch back to the first database (db1) to create a view
+USE db1;
+
+-- Create a view named ClerkView1 to display clerks and their details from emp table in db1
+CREATE VIEW ClerkView1 AS
+SELECT empno AS empnumber, ename, job, sal
+FROM emp
+WHERE job = 'Clerk';
+
+-- Switch to the second database (db2) to create a view
+USE db2;
+
+-- Create a view named ClerkView2 to display clerks and their details from emp table in db2
+CREATE VIEW ClerkView2 AS
+SELECT empno AS empnumber, ename, job, sal
+FROM emp
+WHERE job = 'Clerk';
+
+-- Switch back to the first database (db1) to retrieve data from ClerkView1
+USE db1;
+
+-- Select all records from ClerkView1 to display clerks' details from db1
+SELECT * FROM ClerkView1;
+
+-- Switch to the second database (db2) to retrieve data from ClerkView2
+USE db2;
+
+-- Select all records from ClerkView2 to display clerks' details from db2
+SELECT * FROM ClerkView2;
+
+-- Combine the results from both ClerkView1 in db1 and ClerkView2 in db2 using UNION ALL
+SELECT * FROM db1.ClerkView1
+UNION ALL
+SELECT * FROM db2.ClerkView2;
